@@ -1,3 +1,6 @@
+extern crate chrono;
+use chrono::prelude::*;
+use time::Duration;
 
 // List of Currency Status
 enum status
@@ -33,13 +36,35 @@ enum RateLimit
     Minutes(String),
     Seconds(String)
 }
+    
+// Order Fills 
+enum fills
+{
+    Price(String),
+    Qty(u64),
+    CommFee(u64),
+    CommCurr(String)
+}
+
+// Type of orders 
+enum Type
+{
+    Bids(String),
+    Asks(String)
+}
 
 // Structure of Currency 
 struct Currency 
 {
     symbol: String,
-    status: status, 
-    price: f64
+    depstatus: status, 
+    precision:u8,
+    price: f64,
+    withdrawalfee: u64, 
+    withdrawalsts: String
+    makerfee:u64,
+    takerfee:u64,
+    misc: String   
 }
 
 // Structure of an order
@@ -52,27 +77,43 @@ struct Order
     price: f64,
     qty: u64,
     status: String,
+    origQty: u64, 
     execQty: u64, 
     activeTime: Duration, 
-    type: String, 
-    action: OrderSide
+    Ordertype: String, 
+    action: OrderSide,
+    time: i64,
+    fiils: fills
 }
-  
-// Structue of Trades
-struct Trade
+
+// Structure of user balance 
+struct Balance
 {
     symbol: String,
-    order_id: u64, 
-    clientOrderid: String, 
-    exchange: String, 
-    price: f64,
+    name: String, 
     qty: u64,
-    status: String,
-    execQty: u64, 
-    activeTime: Duration, 
-    type: String, 
-    action: OrderSide
+    availqty: u64,
+    totval: u64
 }
+ 
+// Structure of OrderBook 
+struct OrderBook
+{
+    lastupdateId: u64,
+    type: OrderType
+}
+    
+struct OrderType
+{
+    ordType: Type, 
+    price:[u64,1000],
+    qty:[u64,1000]
+}
+    
+    
+    
+    
+
 
 
 

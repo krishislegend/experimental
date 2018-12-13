@@ -1,6 +1,6 @@
 // List of Currency Symbols
 
-Template Symbol
+trait Symbol
 {
 
 }
